@@ -1,0 +1,106 @@
+openapi: '3.0.2'
+info:
+  title: Books Service 
+  description: This service allows for control of the system's books 
+  version: '1.0'
+  contact:
+    name: Jose Francisco Mateo Carrasco
+    email: locutermo@gmail.com
+servers:
+  - url: https://api.books.sisgebi
+
+
+tags:
+  - name: Book
+    description: Everything about book
+        
+
+paths:
+  #Modulo de libros  
+  /books:
+    get:
+      tags:
+        - Book      
+      summary: Find all books
+      operationId: index
+      responses:      
+        '200':
+          $ref: responses.yml#/responses/ShowBooks
+        '404':
+          $ref: responses.yml#/responses/NotFound
+        '405':
+          $ref: responses.yml#/responses/MethodNotAllowed
+        '401':
+          $ref: responses.yml#/responses/Unauthenticated
+    post:
+      tags:
+        - Book    
+      summary: Add a new book to the system
+      operationId: store
+      requestBody:
+        description: book to add to the system
+        content:
+          application/json:
+            schema:
+              $ref: schemas_payload.yml#/schemas/Book
+            
+      responses:      
+        '201':
+          $ref: responses.yml#/responses/Created
+        '404':
+          $ref: responses.yml#/responses/NotFound
+        '405':
+          $ref: responses.yml#/responses/MethodNotAllowed
+        '401':
+          $ref: responses.yml#/responses/Unauthenticated
+            
+
+components:
+  # Responses
+  # Contiene el todos los tipos de respuestas específicas de una petición http
+  # Por ejemplo dentro de las operaciones basicas de un CRUD para una petición de tipo post para registrar un recurso
+  # tenemos respuestas de errores específicas indicando su código y la respuesta de exito correspondiente al registro
+  # el cual es CreatedBook -> Esta respuesta tiene como contenido un scheme de tipo CreatedResponse, el cual contiene 
+  # la estructura de la respuesta luego de que se realiza un registro
+  responses:
+    ## Respuestas de error específicas 
+  
+    NotFound: 
+      description: The specified resource was not found
+      content: 
+        application/json: 
+          schema: 
+            $ref: schemas_responses.yml#/schemas/NotFoundResponse
+        
+    MethodNotAllowed:
+      description: The method used is not allowed
+      content:
+        application/json:
+          schema:
+            $ref: schemas_responses.yml#/schemas/MethodNotAllowedResponse
+
+    Unauthenticated:
+      description: You have no permission to access  
+      content: 
+        application/json:
+          schema:
+            $ref: schemas_responses.yml#/schemas/UnauthenticatedResponse
+
+  
+    ## Respuestas de exito específicas
+    Created:
+      description: The resource has been successfully created
+      content: 
+        application/json:
+          schema:
+            $ref: schemas_responses.yml#/schemas/CreatedResponse
+    
+    ShowBooks: 
+      description: Show all books
+      content:
+        application/json:
+          schema:
+            $ref: schemas_responses.yml#/schemas/SuccessfulResponse
+          example: 
+            $ref: ./examples/books_example.json
+  

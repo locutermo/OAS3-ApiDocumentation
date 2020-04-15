@@ -1,0 +1,39 @@
+# Responses definition
+  responses:
+    NotFound: 
+      description: The specified resource was not found
+      content: 
+        application/json: 
+          schema: 
+            $ref: schemas_responses.yml#/schemas/NotFoundResponse
+        
+    MethodNotAllowed:
+      description: The method used is not allowed
+      content:
+        application/json:
+          schema:
+            $ref: schemas_responses.yml#/schemas/MethodNotAllowedResponse
+
+    Unauthenticated:
+      description: You have no permission to access  
+      content: 
+        application/json:
+          schema:
+            $ref: schemas_responses.yml#/schemas/UnauthenticatedResponse
+
+
+    Created:
+      description: The resource has been successfully created
+      content: 
+        application/json:
+          schema:
+            $ref: schemas_responses.yml#/schemas/CreatedResponse
+    
+    ShowBooks: 
+      description: Show all books
+      content:
+        application/json:
+          schema:
+            $ref: schemas_responses.yml#/schemas/SuccessfulResponse
+          example: 
+            $ref: ./examples/books_example.json

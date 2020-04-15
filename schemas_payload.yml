@@ -1,0 +1,33 @@
+
+schemas:
+    BookPayload:
+      type: object
+      properties:        
+        title:
+          type: string          
+        seconday_title: 
+          type: string          
+        edition: 
+          type: integer
+          example: 1
+        summary: 
+          type: string
+          example: 
+        isbn: 
+          type: string
+        extension: 
+          type: string
+        observations: 
+          type: string 
+        dimensions: 
+          type: string
+        accompaniment: 
+          type: string
+        keywords:
+          type: string 
+        publication_date: 
+          type: string
+        tome: 
+          type: integer           
+      example:
+        $ref: ./examples/book_payload_example.json
