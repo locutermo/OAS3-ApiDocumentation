@@ -74,6 +74,47 @@ paths:
           $ref: '#/components/responses/MethodNotAllowed'          
         '401':
           $ref: '#/components/responses/Unauthenticated'
+    put: 
+      tags:
+        - Book
+      summary: Update Book
+      operationId: update
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        description: book to update to the system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookPayload'
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'          
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+    delete:
+      tags:
+        - Book
+      summary: Delete Book
+      operationId: destroy
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':          
+          $ref: '#/components/responses/DeleteBook'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'          
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
 
 
 # Aplicar la API key globalmente a todas las operaciones 
@@ -82,7 +123,7 @@ security:
             
 
 components:
-
+      
   # SECURITY
   # Contiene todos los tipos de seguridad para el uso del servicio  
   securitySchemes:
@@ -118,6 +159,12 @@ components:
           schema:            
             $ref: '#/components/schemas/MethodNotAllowedResponse'
 
+    UnprocessableEntity:
+      description: The method used is not allowed
+      content:
+        application/json:
+          schema:            
+            $ref: '#/components/schemas/UnprocessableEntityResponse'
 
     Unauthenticated:
       description: You have no permission to access  
@@ -151,6 +198,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ShowBookResponse'
+
+    DeleteBook:
+      description: Delete one book 
+      content: 
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ShowBookResponse'
+    
 
   # PARAMETERS
   #Contiene todos los parámetros que serán utilizados en una petición http ya sea que sea enviado
@@ -309,6 +364,21 @@ components:
         code: 
           type: integer
           example: 404
+
+    # UnprocessableEntityResponse: Esquema de la respuesta de error UnprocessableEntityResponse el cual contiene un ejemplo
+    UnprocessableEntityResponse:
+      type: object
+      required: 
+          - error
+          - code
+      properties:
+        error: 
+          type: string
+          example: At least one value must change
+        code: 
+          type: integer
+          example: 422
+
     # MethodNotAllowedResponse: Esquema de la respuesta de error MethodNotAllowedResponse el cual contiene un ejemplo
     MethodNotAllowedResponse:
       type: object
@@ -372,6 +442,8 @@ components:
         code:
           type: integer
           example: 200
+  
+    
 
             
       
