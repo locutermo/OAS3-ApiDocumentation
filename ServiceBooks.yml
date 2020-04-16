@@ -22,6 +22,7 @@ paths:
       tags:
         - Book      
       summary: Find all books
+            
       operationId: index
       responses:      
         '200':
@@ -56,11 +57,46 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthenticated'
 
+  /books/{id}:
+    get:
+      tags:
+        - Book
+      summary: Find a book
+      operationId: show
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/ShowBook'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'          
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+
+
+# Aplicar la API key globalmente a todas las operaciones 
+security:
+  - Authorization: []
             
 
 components:
-  # Responses
-  # Contiene el todos los tipos de respuestas específicas de una petición http
+
+  # SECURITY
+  # Contiene todos los tipos de seguridad para el uso del servicio  
+  securitySchemes:
+    # AUTHORIZATION:
+    # Permite el uso del servicio mediante el registro de una api key enviado en el header
+    # con el nombre Authorization, por ejemplo: Authorization EJm9IExSA9rv3N9uCVfIhNRdNOMUSe8w
+    # estas cadenas serán colocadas en el archivo de configuración del servicio y restringido mediante un middleware
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header 
+
+  # RESPONSES
+  # Contiene todos los tipos de respuestas específicas de una petición http
   # Por ejemplo dentro de las operaciones basicas de un CRUD para una petición de tipo post para registrar un recurso
   # tenemos respuestas de errores específicas indicando su código y la respuesta de exito correspondiente al registro
   # el cual es CreatedBook -> Esta respuesta tiene como contenido un scheme de tipo CreatedResponse, el cual contiene 
@@ -108,6 +144,26 @@ components:
             $ref: '#/components/schemas/SuccessfulResponse'            
           example: 
             $ref: ./examples/books_example.json
+    
+    ShowBook:
+      description: Show one book 
+      content: 
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ShowBookResponse'
+
+  # PARAMETERS
+  #Contiene todos los parámetros que serán utilizados en una petición http ya sea que sea enviado
+  #por el header, path, query o cache
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      description: Book id 
+      schema:
+        type: integer        
+  
   
   schemas:
   
@@ -305,5 +361,17 @@ components:
         code: 
           type: integer   
           example: 201  
+    ShowBookResponse:
+      type: object
+      required:
+        - data
+        - code
+      properties: 
+        data:
+          $ref: '#/components/schemas/Book'
+        code:
+          type: integer
+          example: 200
+
             
       
