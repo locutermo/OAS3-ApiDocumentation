@@ -25,13 +25,14 @@ paths:
       operationId: index
       responses:      
         '200':
-          $ref: responses.yml#/responses/ShowBooks
+          $ref: '#/components/responses/ShowBooks'
         '404':
-          $ref: responses.yml#/responses/NotFound
+          $ref: '#/components/responses/NotFound'
         '405':
-          $ref: responses.yml#/responses/MethodNotAllowed
+          $ref: '#/components/responses/MethodNotAllowed'          
         '401':
-          $ref: responses.yml#/responses/Unauthenticated
+          $ref: '#/components/responses/Unauthenticated'
+          
     post:
       tags:
         - Book    
@@ -42,17 +43,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: schemas_payload.yml#/schemas/Book
+              $ref: '#/components/schemas/BookPayload'
             
       responses:      
         '201':
-          $ref: responses.yml#/responses/Created
+          $ref: '#/components/responses/Created'
+
         '404':
-          $ref: responses.yml#/responses/NotFound
+          $ref: '#/components/responses/NotFound'
         '405':
-          $ref: responses.yml#/responses/MethodNotAllowed
+          $ref: '#/components/responses/MethodNotAllowed'          
         '401':
-          $ref: responses.yml#/responses/Unauthenticated
+          $ref: '#/components/responses/Unauthenticated'
+
             
 
 components:
@@ -70,21 +73,23 @@ components:
       content: 
         application/json: 
           schema: 
-            $ref: schemas_responses.yml#/schemas/NotFoundResponse
+            $ref: '#/components/schemas/NotFoundResponse'
         
     MethodNotAllowed:
       description: The method used is not allowed
       content:
         application/json:
-          schema:
-            $ref: schemas_responses.yml#/schemas/MethodNotAllowedResponse
+          schema:            
+            $ref: '#/components/schemas/MethodNotAllowedResponse'
+
 
     Unauthenticated:
       description: You have no permission to access  
       content: 
         application/json:
-          schema:
-            $ref: schemas_responses.yml#/schemas/UnauthenticatedResponse
+          schema:            
+            $ref: '#/components/schemas/UnauthenticatedResponse'
+
 
   
     ## Respuestas de exito específicas
@@ -93,14 +98,212 @@ components:
       content: 
         application/json:
           schema:
-            $ref: schemas_responses.yml#/schemas/CreatedResponse
+            $ref: '#/components/schemas/CreatedResponse'
     
     ShowBooks: 
       description: Show all books
       content:
         application/json:
           schema:
-            $ref: schemas_responses.yml#/schemas/SuccessfulResponse
+            $ref: '#/components/schemas/SuccessfulResponse'            
           example: 
             $ref: ./examples/books_example.json
   
+  schemas:
+  
+  # SCHEMA MODEL
+  # Este tipo de esquema representa a la entidad del modelo en nuestra aplicación
+  # Por ejemplo en el servicio: ServiceBooks, tenemos 2 modelos el cual se relacionan
+    # Book: Es el esquema del modelo Book, el cual contiene sus atributos y un ejemplo  
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer          
+        title:
+          type: string          
+        seconday_title: 
+          type: string          
+        edition: 
+          type: integer
+          example: 1
+        summary: 
+          type: string
+          example: 
+        isbn: 
+          type: string
+        extension: 
+          type: string
+        observations: 
+          type: string 
+        dimensions: 
+          type: string
+        accompaniment: 
+          type: string
+        keywords:
+          type: string 
+        publication_date: 
+          type: string
+        tome: 
+          type: integer 
+        created_at: 
+          type: string       
+        updated_at:
+          type: string
+      example:
+        $ref: ./examples/book_example.json
+    # BookCopy: Es el esquema del modelo BookCopy, el cual contiene sus atributos y un ejemplo  
+    BookCopy:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        book_id:
+          type: integer
+          example: 1
+        stand_id: 
+          type: integer
+          example: 1 
+        income_number: 
+          type: string
+        clasification:
+          type: string
+          example: QAR.234p.a2
+        barcode: 
+          type: string 
+        copy: 
+          type: integer
+        volume: 
+          type: integer 
+        acquisition_modality: 
+          type: integer
+        acquisition_price: 
+          type: number
+        acquisition_date: 
+          type: string
+        acquisition_source: 
+          type: string
+        availability: 
+          type: integer
+        printType: 
+          type: integer
+        publication_location: 
+          type: string
+
+  #PAYLOAD SCHEME
+  #Este esquema contiene la estructura de un request body
+    BookPayload:
+      type: object
+      properties:        
+        title:
+          type: string          
+        seconday_title: 
+          type: string          
+        edition: 
+          type: integer
+          example: 1
+        summary: 
+          type: string
+          example: 
+        isbn: 
+          type: string
+        extension: 
+          type: string
+        observations: 
+          type: string 
+        dimensions: 
+          type: string
+        accompaniment: 
+          type: string
+        keywords:
+          type: string 
+        publication_date: 
+          type: string
+        tome: 
+          type: integer           
+      example:
+        $ref: ./examples/book_payload_example.json
+
+  #RESPONSE SCHEME
+  # Este esquema Contiene la estructura de una respuesta
+    # ERROR RESPONSE -> Son los esquemas de una respuesta de error 
+    
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - code
+      properties:
+        error: 
+          type: string
+        code: 
+          type: integer
+
+    # NotFoundResponse: Esquema de la respuesta de error NotFound el cual contiene un ejemplo
+    NotFoundResponse:
+      type: object
+      required: 
+          - error
+          - code
+      properties:
+        error: 
+          type: string
+          example: Not found
+        code: 
+          type: integer
+          example: 404
+    # MethodNotAllowedResponse: Esquema de la respuesta de error MethodNotAllowedResponse el cual contiene un ejemplo
+    MethodNotAllowedResponse:
+      type: object
+      required: 
+          - error
+          - code
+      properties:
+        error: 
+          type: string
+          example: Method Not Allowed
+        code: 
+          type: integer
+          example: 405
+    # UnauthenticatedResponse: Esquema de la respuesta de error UnauthenticatedResponse el cual contiene un ejemplo
+    UnauthenticatedResponse:
+      type: object
+      required: 
+          - error
+          - code
+      properties:
+        error: 
+          type: string
+          example: Unauthenticated
+        code: 
+          type: integer
+          example: 401
+
+
+    # SUCCESSFUL RESPONSE -> Contiene la estructura de una respuesta de exito
+    SuccessfulResponse:
+      type: object
+      required:
+        - error
+        - code
+      properties:
+        data: 
+          type: object
+        code: 
+          type: integer
+
+    # CreatedResponse: Esquema de la respuesta de exito CreatedResponse el cual contiene un ejemplo
+    CreatedResponse:
+      type: object
+      required:
+        - data
+        - code
+      properties:
+        data:           
+          $ref: '#/components/schemas/Book'
+        code: 
+          type: integer   
+          example: 201  
+            
+      
