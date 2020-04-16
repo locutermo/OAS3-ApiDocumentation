@@ -7,14 +7,12 @@ info:
     name: Jose Francisco Mateo Carrasco
     email: locutermo@gmail.com
 servers:
-  - url: https://api.books.sisgebi
-
+  - url: https://books-service-sisgebi.herokuapp.com/  
 
 tags:
   - name: Book
     description: Everything about book
         
-
 paths:
   #Modulo de libros  
   /books:
