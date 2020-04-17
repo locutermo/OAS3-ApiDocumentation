@@ -1,0 +1,28 @@
+{
+    "name": "OAS3-SISGEBI-EXAMPLE",
+    "version": "1.0.0",
+    "description": "Example of Service Books documentation using OAS-3.0.2",
+    "private": false,
+    "homepage": "https://github.com/locutermo/ServiceBooks-ApiDocumentation",
+    "main": "ServiceBooks.yml",
+    "author": {
+        "name": "Jose Francisco Mateo Carrasco",
+        "email": "locutermo@gmail.com"
+    },
+    
+    "bugs": {
+        "url": "https://github.com/locutermo/ServiceBooks-ApiDocumentation/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/locutermo/ServiceBooks-ApiDocumentation.git"
+    },
+    
+    "dependencies": {
+        "redoc-cli": "0.9.7"
+    },
+    "scripts": {
+        "start" : "redoc-cli bundle -o index.html ServiceBooks.yml"
+    }
+
+}
