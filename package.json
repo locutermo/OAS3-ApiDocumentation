@@ -22,7 +22,7 @@
         "redoc-cli": "0.9.7"
     },
     "scripts": {
-        "start" : "redoc-cli bundle -o index.html ServiceBooks.yml"
+        "start" : "redoc-cli bundle -o index.html Service.yml"
     }
 
 }
