@@ -24,7 +24,7 @@ paths:
       operationId: index
       responses:      
         '200':
-          $ref: '#/components/responses/ShowBooks'
+          $ref: '#/components/responses/ShowBooks'          
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
@@ -42,12 +42,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BookPayload'
-            
+              $ref: '#/components/schemas/BookPayload'              
       responses:      
         '201':
           $ref: '#/components/responses/Created'
-
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
@@ -82,9 +80,9 @@ paths:
       requestBody:
         description: book to update to the system
         content:
-          application/json:
+          x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/BookPayload'
+              $ref: '#/components/schemas/BookPayload'            
       responses:
         '201':
           $ref: '#/components/responses/Created'
@@ -186,9 +184,8 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/SuccessfulResponse'            
-          example: 
-            $ref: ./examples/books_example.json
+            $ref: '#/components/schemas/ShowBooksResponse'                      
+          
     
     ShowBook:
       description: Show one book 
@@ -260,7 +257,21 @@ components:
         updated_at:
           type: string
       example:
-        $ref: ./examples/book_example.json
+        id: 1
+        title: Voluptas aliquam est
+        secondary_title: Voluptas aliquam est
+        edition: 1
+        summary: Voluptas aliquam est
+        isbn: 22222
+        extension: 200
+        observations: Voluptas aliquam est
+        dimensions: 24x22
+        accompaniment: CD
+        keywords: abc,access
+        publication_date: 23-04-2020
+        tome: 1
+        created_at: "2020-04-16 07:35:08"
+        updated_at: "2020-04-16 07:35:08"
     # BookCopy: Es el esquema del modelo BookCopy, el cual contiene sus atributos y un ejemplo  
     BookCopy:
       type: object
@@ -298,23 +309,86 @@ components:
         printType: 
           type: integer
         publication_location: 
-          type: string
-
+          type: string    
+    # Arrays
+    ArrayOfBooks:      
+        type: object
+        properties:
+          id:
+            type: integer          
+          title:
+            type: string          
+          seconday_title: 
+            type: string          
+          edition: 
+            type: integer            
+          summary: 
+            type: string            
+          isbn: 
+            type: string
+          extension: 
+            type: string
+          observations: 
+            type: string 
+          dimensions: 
+            type: string
+          accompaniment: 
+            type: string
+          keywords:
+            type: string 
+          publication_date: 
+            type: string
+          tome: 
+            type: integer 
+          created_at: 
+            type: string       
+          updated_at:
+            type: string
+        example:
+          - id: 2
+            title: Voluptas aliquam est
+            secondary_title: Voluptas aliquam est
+            edition: 1
+            summary: Voluptas aliquam est
+            isbn: 22222
+            extension: 200
+            observations: Voluptas aliquam est
+            dimensions: 24x22
+            accompaniment: CD
+            keywords: abc,access
+            publication_date: 23-04-2020
+            tome: 1
+            created_at: "2020-04-16 07:35:08"
+            updated_at: "2020-04-16 07:35:08"
+          - id: 3
+            title: Voluptas aliquam est
+            secondary_title: Voluptas aliquam est
+            edition: 1
+            summary: Voluptas aliquam est
+            isbn: 22222
+            extension: 200
+            observations: Voluptas aliquam est
+            dimensions: 24x22
+            accompaniment: CD
+            keywords: abc,access
+            publication_date: 23-04-2020
+            tome: 1
+            created_at: "2020-04-16 07:35:08"
+            updated_at: "2020-04-16 07:35:08"
+          
   #PAYLOAD SCHEME
   #Este esquema contiene la estructura de un request body
     BookPayload:
       type: object
       properties:        
         title:
-          type: string          
+          type: string            
         seconday_title: 
-          type: string          
+          type: string                    
         edition: 
-          type: integer
-          example: 1
+          type: integer          
         summary: 
           type: string
-          example: 
         isbn: 
           type: string
         extension: 
@@ -330,9 +404,21 @@ components:
         publication_date: 
           type: string
         tome: 
-          type: integer           
-      example:
-        $ref: ./examples/book_payload_example.json
+          type: integer                       
+      example:           
+          title: Jessie James Meets Frankenstein's Daughter
+          secondary_title: Soloist
+          edition: 1
+          summary: Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris."
+          isbn: 008384517-8
+          extension: 52584-045
+          observations: Sed ante. Vivamus tortor.
+          dimensions: 16
+          accompaniment: in hac
+          keywords: lobortis,convallis,tortor,risus
+          publication_date: 9/26/2019
+          tome: 1
+      
 
   #RESPONSE SCHEME
   # Este esquema Contiene la estructura de una respuesta
@@ -429,6 +515,7 @@ components:
         code: 
           type: integer   
           example: 201  
+          
     ShowBookResponse:
       type: object
       required:
@@ -440,8 +527,16 @@ components:
         code:
           type: integer
           example: 200
-  
     
-
-            
-      
+    ShowBooksResponse:
+      type: object
+      required:
+        - data
+        - code
+      properties: 
+        data:
+          $ref: '#/components/schemas/ArrayOfBooks'
+        code:
+          type: integer
+          example: 200
+  
