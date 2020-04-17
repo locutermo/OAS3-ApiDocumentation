@@ -1,7 +1,7 @@
 openapi: '3.0.2'
 info:
   title: Books Service 
-  description: This service allows for control of the system's books 
+  description: This service allows for control of the system's books
   version: '1.0'
   contact:
     name: Jose Francisco Mateo Carrasco
@@ -24,13 +24,14 @@ paths:
       operationId: index
       responses:      
         '200':
-          $ref: '#/components/responses/ShowBooks'          
-        '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: components/responses/responses.yml#/ShowBooks          
+        '404':          
+          $ref: components/responses/responses.yml#/NotFound 
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'          
+          $ref: components/responses/responses.yml#/MethodNotAllowed           
         '401':
-          $ref: '#/components/responses/Unauthenticated'
+          $ref: components/responses/responses.yml#/Unauthenticated 
+          
           
     post:
       tags:
@@ -42,16 +43,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BookPayload'              
+              $ref: components/schemas/payloads/payload.yml#/BookPayload
       responses:      
         '201':
-          $ref: '#/components/responses/Created'
-        '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: components/responses/responses.yml#/Created          
+        '404':          
+          $ref: components/responses/responses.yml#/NotFound 
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'          
+          $ref: components/responses/responses.yml#/MethodNotAllowed           
         '401':
-          $ref: '#/components/responses/Unauthenticated'
+          $ref: components/responses/responses.yml#/Unauthenticated 
 
   /books/{id}:
     get:
@@ -60,40 +61,40 @@ paths:
       summary: Find a book
       operationId: show
       parameters:
-        - $ref: '#/components/parameters/id'
+        - $ref: components/parameters/parameters.yml#/id
       responses:
         '200':
-          $ref: '#/components/responses/ShowBook'
-        '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: components/responses/responses.yml#/ShowBook       
+        '404':          
+          $ref: components/responses/responses.yml#/NotFound 
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'          
+          $ref: components/responses/responses.yml#/MethodNotAllowed           
         '401':
-          $ref: '#/components/responses/Unauthenticated'
+          $ref: components/responses/responses.yml#/Unauthenticated 
     put: 
       tags:
         - Book
       summary: Update Book
       operationId: update
       parameters: 
-        - $ref: '#/components/parameters/id'
+        - $ref: components/parameters/parameters.yml#/id
       requestBody:
         description: book to update to the system
         content:
           x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/BookPayload'            
+              $ref: components/schemas/payloads/payload.yml#/BookPayload
       responses:
         '201':
-          $ref: '#/components/responses/Created'
-        '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: components/responses/responses.yml#/Created      
+        '404':          
+          $ref: components/responses/responses.yml#/NotFound 
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'          
+          $ref: components/responses/responses.yml#/MethodNotAllowed           
         '401':
-          $ref: '#/components/responses/Unauthenticated'
+          $ref: components/responses/responses.yml#/Unauthenticated 
         '422':
-          $ref: '#/components/responses/UnprocessableEntity'
+          $ref: components/responses/responses.yml#/UnprocessableEntity           
 
     delete:
       tags:
@@ -101,16 +102,16 @@ paths:
       summary: Delete Book
       operationId: destroy
       parameters:
-        - $ref: '#/components/parameters/id'
+        - $ref: components/parameters/parameters.yml#/id
       responses:
-        '200':          
-          $ref: '#/components/responses/DeleteBook'
-        '404':
-          $ref: '#/components/responses/NotFound'
+        '200':
+          $ref: components/responses/responses.yml#/DeleteBook       
+        '404':          
+          $ref: components/responses/responses.yml#/NotFound 
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'          
+          $ref: components/responses/responses.yml#/MethodNotAllowed           
         '401':
-          $ref: '#/components/responses/Unauthenticated'
+          $ref: components/responses/responses.yml#/Unauthenticated 
 
 
 # Aplicar la API key globalmente a todas las operaciones 
@@ -131,412 +132,3 @@ components:
       type: apiKey
       name: Authorization
       in: header 
-
-  # RESPONSES
-  # Contiene todos los tipos de respuestas específicas de una petición http
-  # Por ejemplo dentro de las operaciones basicas de un CRUD para una petición de tipo post para registrar un recurso
-  # tenemos respuestas de errores específicas indicando su código y la respuesta de exito correspondiente al registro
-  # el cual es CreatedBook -> Esta respuesta tiene como contenido un scheme de tipo CreatedResponse, el cual contiene 
-  # la estructura de la respuesta luego de que se realiza un registro
-  responses:
-    ## Respuestas de error específicas 
-  
-    NotFound: 
-      description: The specified resource was not found
-      content: 
-        application/json: 
-          schema: 
-            $ref: '#/components/schemas/NotFoundResponse'
-        
-    MethodNotAllowed:
-      description: The method used is not allowed
-      content:
-        application/json:
-          schema:            
-            $ref: '#/components/schemas/MethodNotAllowedResponse'
-
-    UnprocessableEntity:
-      description: The method used is not allowed
-      content:
-        application/json:
-          schema:            
-            $ref: '#/components/schemas/UnprocessableEntityResponse'
-
-    Unauthenticated:
-      description: You have no permission to access  
-      content: 
-        application/json:
-          schema:            
-            $ref: '#/components/schemas/UnauthenticatedResponse'
-
-
-  
-    ## Respuestas de exito específicas
-    Created:
-      description: The resource has been successfully created
-      content: 
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreatedResponse'
-    
-    ShowBooks: 
-      description: Show all books
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ShowBooksResponse'                      
-          
-    
-    ShowBook:
-      description: Show one book 
-      content: 
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ShowBookResponse'
-
-    DeleteBook:
-      description: Delete one book 
-      content: 
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ShowBookResponse'
-    
-
-  # PARAMETERS
-  #Contiene todos los parámetros que serán utilizados en una petición http ya sea que sea enviado
-  #por el header, path, query o cache
-  parameters:
-    id:
-      name: id
-      in: path
-      required: true
-      description: Book id 
-      schema:
-        type: integer        
-  
-  
-  schemas:
-  
-  # SCHEMA MODEL
-  # Este tipo de esquema representa a la entidad del modelo en nuestra aplicación
-  # Por ejemplo en el servicio: ServiceBooks, tenemos 2 modelos el cual se relacionan
-    # Book: Es el esquema del modelo Book, el cual contiene sus atributos y un ejemplo  
-    Book:
-      type: object
-      properties:
-        id:
-          type: integer          
-        title:
-          type: string          
-        seconday_title: 
-          type: string          
-        edition: 
-          type: integer
-          example: 1
-        summary: 
-          type: string
-          example: 
-        isbn: 
-          type: string
-        extension: 
-          type: string
-        observations: 
-          type: string 
-        dimensions: 
-          type: string
-        accompaniment: 
-          type: string
-        keywords:
-          type: string 
-        publication_date: 
-          type: string
-        tome: 
-          type: integer 
-        created_at: 
-          type: string       
-        updated_at:
-          type: string
-      example:
-        id: 1
-        title: Voluptas aliquam est
-        secondary_title: Voluptas aliquam est
-        edition: 1
-        summary: Voluptas aliquam est
-        isbn: 22222
-        extension: 200
-        observations: Voluptas aliquam est
-        dimensions: 24x22
-        accompaniment: CD
-        keywords: abc,access
-        publication_date: 23-04-2020
-        tome: 1
-        created_at: "2020-04-16 07:35:08"
-        updated_at: "2020-04-16 07:35:08"
-    # BookCopy: Es el esquema del modelo BookCopy, el cual contiene sus atributos y un ejemplo  
-    BookCopy:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        book_id:
-          type: integer
-          example: 1
-        stand_id: 
-          type: integer
-          example: 1 
-        income_number: 
-          type: string
-        clasification:
-          type: string
-          example: QAR.234p.a2
-        barcode: 
-          type: string 
-        copy: 
-          type: integer
-        volume: 
-          type: integer 
-        acquisition_modality: 
-          type: integer
-        acquisition_price: 
-          type: number
-        acquisition_date: 
-          type: string
-        acquisition_source: 
-          type: string
-        availability: 
-          type: integer
-        printType: 
-          type: integer
-        publication_location: 
-          type: string    
-    # Arrays
-    ArrayOfBooks:      
-        type: object
-        properties:
-          id:
-            type: integer          
-          title:
-            type: string          
-          seconday_title: 
-            type: string          
-          edition: 
-            type: integer            
-          summary: 
-            type: string            
-          isbn: 
-            type: string
-          extension: 
-            type: string
-          observations: 
-            type: string 
-          dimensions: 
-            type: string
-          accompaniment: 
-            type: string
-          keywords:
-            type: string 
-          publication_date: 
-            type: string
-          tome: 
-            type: integer 
-          created_at: 
-            type: string       
-          updated_at:
-            type: string
-        example:
-          - id: 2
-            title: Voluptas aliquam est
-            secondary_title: Voluptas aliquam est
-            edition: 1
-            summary: Voluptas aliquam est
-            isbn: 22222
-            extension: 200
-            observations: Voluptas aliquam est
-            dimensions: 24x22
-            accompaniment: CD
-            keywords: abc,access
-            publication_date: 23-04-2020
-            tome: 1
-            created_at: "2020-04-16 07:35:08"
-            updated_at: "2020-04-16 07:35:08"
-          - id: 3
-            title: Voluptas aliquam est
-            secondary_title: Voluptas aliquam est
-            edition: 1
-            summary: Voluptas aliquam est
-            isbn: 22222
-            extension: 200
-            observations: Voluptas aliquam est
-            dimensions: 24x22
-            accompaniment: CD
-            keywords: abc,access
-            publication_date: 23-04-2020
-            tome: 1
-            created_at: "2020-04-16 07:35:08"
-            updated_at: "2020-04-16 07:35:08"
-          
-  #PAYLOAD SCHEME
-  #Este esquema contiene la estructura de un request body
-    BookPayload:
-      type: object
-      properties:        
-        title:
-          type: string            
-        seconday_title: 
-          type: string                    
-        edition: 
-          type: integer          
-        summary: 
-          type: string
-        isbn: 
-          type: string
-        extension: 
-          type: string
-        observations: 
-          type: string 
-        dimensions: 
-          type: string
-        accompaniment: 
-          type: string
-        keywords:
-          type: string 
-        publication_date: 
-          type: string
-        tome: 
-          type: integer                       
-      example:           
-          title: Jessie James Meets Frankenstein's Daughter
-          secondary_title: Soloist
-          edition: 1
-          summary: Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris."
-          isbn: 008384517-8
-          extension: 52584-045
-          observations: Sed ante. Vivamus tortor.
-          dimensions: 16
-          accompaniment: in hac
-          keywords: lobortis,convallis,tortor,risus
-          publication_date: 9/26/2019
-          tome: 1
-      
-
-  #RESPONSE SCHEME
-  # Este esquema Contiene la estructura de una respuesta
-    # ERROR RESPONSE -> Son los esquemas de una respuesta de error 
-    
-    ErrorResponse:
-      type: object
-      required:
-        - error
-        - code
-      properties:
-        error: 
-          type: string
-        code: 
-          type: integer
-
-    # NotFoundResponse: Esquema de la respuesta de error NotFound el cual contiene un ejemplo
-    NotFoundResponse:
-      type: object
-      required: 
-          - error
-          - code
-      properties:
-        error: 
-          type: string
-          example: Not found
-        code: 
-          type: integer
-          example: 404
-
-    # UnprocessableEntityResponse: Esquema de la respuesta de error UnprocessableEntityResponse el cual contiene un ejemplo
-    UnprocessableEntityResponse:
-      type: object
-      required: 
-          - error
-          - code
-      properties:
-        error: 
-          type: string
-          example: At least one value must change
-        code: 
-          type: integer
-          example: 422
-
-    # MethodNotAllowedResponse: Esquema de la respuesta de error MethodNotAllowedResponse el cual contiene un ejemplo
-    MethodNotAllowedResponse:
-      type: object
-      required: 
-          - error
-          - code
-      properties:
-        error: 
-          type: string
-          example: Method Not Allowed
-        code: 
-          type: integer
-          example: 405
-    # UnauthenticatedResponse: Esquema de la respuesta de error UnauthenticatedResponse el cual contiene un ejemplo
-    UnauthenticatedResponse:
-      type: object
-      required: 
-          - error
-          - code
-      properties:
-        error: 
-          type: string
-          example: Unauthenticated
-        code: 
-          type: integer
-          example: 401
-
-
-    # SUCCESSFUL RESPONSE -> Contiene la estructura de una respuesta de exito
-    SuccessfulResponse:
-      type: object
-      required:
-        - error
-        - code
-      properties:
-        data: 
-          type: object
-        code: 
-          type: integer
-
-    # CreatedResponse: Esquema de la respuesta de exito CreatedResponse el cual contiene un ejemplo
-    CreatedResponse:
-      type: object
-      required:
-        - data
-        - code
-      properties:
-        data:           
-          $ref: '#/components/schemas/Book'
-        code: 
-          type: integer   
-          example: 201  
-          
-    ShowBookResponse:
-      type: object
-      required:
-        - data
-        - code
-      properties: 
-        data:
-          $ref: '#/components/schemas/Book'
-        code:
-          type: integer
-          example: 200
-    
-    ShowBooksResponse:
-      type: object
-      required:
-        - data
-        - code
-      properties: 
-        data:
-          $ref: '#/components/schemas/ArrayOfBooks'
-        code:
-          type: integer
-          example: 200
-  

@@ -1,0 +1,86 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "Voluptas aliquam est.",
+            "description": "Veritatis blanditiis alias rerum et quos neque delectus et.",
+            "price": 137,
+            "author_id": 2,
+            "created_at": "2020-04-16 07:35:07",
+            "updated_at": "2020-04-16 07:35:07"
+        },
+        {
+            "id": 2,
+            "title": "Ab optio omnis earum.",
+            "description": "Laudantium nihil labore aut.",
+            "price": 93,
+            "author_id": 27,
+            "created_at": "2020-04-16 07:35:08",
+            "updated_at": "2020-04-16 07:35:08"
+        },
+        {
+            "id": 3,
+            "title": "Vel quo sed quod.",
+            "description": "Consequatur blanditiis officia facere natus aut magni ea.",
+            "price": 111,
+            "author_id": 46,
+            "created_at": "2020-04-16 07:35:08",
+            "updated_at": "2020-04-16 07:35:08"
+        },
+        {
+            "id": 4,
+            "title": "Sunt eligendi.",
+            "description": "Quasi itaque consequatur libero ea nulla.",
+            "price": 93,
+            "author_id": 44,
+            "created_at": "2020-04-16 07:35:08",
+            "updated_at": "2020-04-16 07:35:08"
+        },
+        {
+            "id": 5,
+            "title": "Et assumenda cupiditate.",
+            "description": "Sequi autem aut impedit ut assumenda vel.",
+            "price": 56,
+            "author_id": 23,
+            "created_at": "2020-04-16 07:35:08",
+            "updated_at": "2020-04-16 07:35:08"
+        },
+        {
+            "id": 6,
+            "title": "Consequatur molestiae eum et.",
+            "description": "Eveniet velit consequatur eum repellat.",
+            "price": 150,
+            "author_id": 35,
+            "created_at": "2020-04-16 07:35:08",
+            "updated_at": "2020-04-16 07:35:08"
+        },
+        {
+            "id": 7,
+            "title": "Consequatur asperiores ut.",
+            "description": "Provident aut maxime commodi ea aliquid eligendi ullam qui.",
+            "price": 98,
+            "author_id": 12,
+            "created_at": "2020-04-16 07:35:09",
+            "updated_at": "2020-04-16 07:35:09"
+        },
+        {
+            "id": 8,
+            "title": "Aut maxime nisi.",
+            "description": "Occaecati ea et in.",
+            "price": 29,
+            "author_id": 20,
+            "created_at": "2020-04-16 07:35:09",
+            "updated_at": "2020-04-16 07:35:09"
+        },
+        {
+            "id": 9,
+            "title": "Illo modi.",
+            "description": "Et facilis est voluptatem inventore quasi ex architecto facilis.",
+            "price": 80,
+            "author_id": 15,
+            "created_at": "2020-04-16 07:35:09",
+            "updated_at": "2020-04-16 07:35:09"
+        }
+    ],
+    "code": 200
+}

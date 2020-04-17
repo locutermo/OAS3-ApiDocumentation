@@ -1,0 +1,11 @@
+
+  # PARAMETERS
+  #Contiene todos los parámetros que serán utilizados en una petición http ya sea que sea enviado
+  #por el header, path, query o cache  
+    id:
+      name: id
+      in: path
+      required: true
+      description: Book id 
+      schema:
+        type: integer     

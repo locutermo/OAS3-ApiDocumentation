@@ -1,0 +1,68 @@
+ #RESPONSE SCHEME
+  # Este esquema Contiene la estructura de una respuesta
+    # ERROR RESPONSE -> Son los esquemas de una respuesta de error     
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - code
+      properties:
+        error: 
+          type: string
+        code: 
+          type: integer
+
+    # NotFoundResponse: Esquema de la respuesta de error NotFound el cual contiene un ejemplo
+    NotFoundResponse:
+      type: object
+      required: 
+          - error
+          - code
+      properties:
+        error: 
+          type: string
+          example: Not found
+        code: 
+          type: integer
+          example: 404
+
+    # UnprocessableEntityResponse: Esquema de la respuesta de error UnprocessableEntityResponse el cual contiene un ejemplo
+    UnprocessableEntityResponse:
+      type: object
+      required: 
+          - error
+          - code
+      properties:
+        error: 
+          type: string
+          example: At least one value must change
+        code: 
+          type: integer
+          example: 422
+
+    # MethodNotAllowedResponse: Esquema de la respuesta de error MethodNotAllowedResponse el cual contiene un ejemplo
+    MethodNotAllowedResponse:
+      type: object
+      required: 
+          - error
+          - code
+      properties:
+        error: 
+          type: string
+          example: Method Not Allowed
+        code: 
+          type: integer
+          example: 405
+    # UnauthenticatedResponse: Esquema de la respuesta de error UnauthenticatedResponse el cual contiene un ejemplo
+    UnauthenticatedResponse:
+      type: object
+      required: 
+          - error
+          - code
+      properties:
+        error: 
+          type: string
+          example: Unauthenticated
+        code: 
+          type: integer
+          example: 401

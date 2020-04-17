@@ -1,0 +1,51 @@
+#RESPONSE SCHEME
+  # Este esquema Contiene la estructura de una respuesta
+    # SUCCESSFUL RESPONSE -> Contiene la estructura de una respuesta de exito
+    SuccessfulResponse:
+      type: object
+      required:
+        - error
+        - code
+      properties:
+        data: 
+          type: object
+        code: 
+          type: integer
+
+    # CreatedResponse: Esquema de la respuesta de exito CreatedResponse el cual contiene un ejemplo
+    CreatedResponse:
+      type: object
+      required:
+        - data
+        - code
+      properties:
+        data:           
+          $ref: ../models/models.yml#/Book
+        code: 
+          type: integer   
+          example: 201  
+          
+    ShowBookResponse:
+      type: object
+      required:
+        - data
+        - code
+      properties: 
+        data:
+          $ref: ../models/models.yml#/Book
+        code:
+          type: integer
+          example: 200
+
+    ShowBooksResponse:
+      type: object
+      required:
+        - data
+        - code
+      properties: 
+        data:
+          $ref: ../models/models.yml#ArrayOfBooks
+        code:
+          type: integer
+          example: 200
+

@@ -1,0 +1,43 @@
+#PAYLOAD SCHEME
+  #Este esquema contiene la estructura de un request body
+    BookPayload:
+      type: object
+      properties:        
+        title:
+          type: string            
+        seconday_title: 
+          type: string                    
+        edition: 
+          type: integer          
+        summary: 
+          type: string
+        isbn: 
+          type: string
+        extension: 
+          type: string
+        observations: 
+          type: string 
+        dimensions: 
+          type: string
+        accompaniment: 
+          type: string
+        keywords:
+          type: string 
+        publication_date: 
+          type: string
+        tome: 
+          type: integer                       
+      example:           
+          title: Jessie James Meets Frankenstein's Daughter
+          secondary_title: Soloist
+          edition: 1
+          summary: Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris."
+          isbn: 008384517-8
+          extension: 52584-045
+          observations: Sed ante. Vivamus tortor.
+          dimensions: 16
+          accompaniment: in hac
+          keywords: lobortis,convallis,tortor,risus
+          publication_date: 9/26/2019
+          tome: 1
+      
